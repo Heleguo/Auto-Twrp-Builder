@@ -110,7 +110,7 @@ jobs:
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload 
-      uses: actions/upload-artifact@v4.6.
+      uses: actions/upload-artifact@v4.6.2
       with:
         path: | 
           workspace/out/target/product/${{ steps.gdt.outputs.DEVICE_NAME }}/${{ github.event.inputs.BUILD_TARGET }}.img
