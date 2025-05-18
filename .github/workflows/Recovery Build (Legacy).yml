@@ -129,18 +129,11 @@ jobs:
         make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
-    - name: Upload to Release
-      uses: softprops/action-gh-release@v1
+    - name: Upload 
+      uses: actions/upload-artifact@v4.6.
       with:
-        files: | 
+        path: | 
           workspace/out/target/product/${{ steps.gdt.outputs.DEVICE_NAME }}/${{ github.event.inputs.BUILD_TARGET }}.img
           workspace/out/target/product/${{ steps.gdt.outputs.DEVICE_NAME }}/*.zip
           workspace/out/target/product/${{ steps.gdt.outputs.DEVICE_NAME }}/*vendor*.img
-        name: ${{ steps.gdt.outputs.DEVICE_NAME }}-${{ github.run_id }}
-        tag_name: ${{ github.run_id }}
-        body: |
-          Manifest: ${{ github.event.inputs.MANIFEST_BRANCH }}
-          Device: ${{ steps.gdt.outputs.DEVICE_NAME }}
-          Target: ${{ github.event.inputs.BUILD_TARGET }}.img
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
